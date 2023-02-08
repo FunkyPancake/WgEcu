@@ -33,8 +33,8 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
         DEBUG
         __NEWLIB__
         )
-    target_link_directories(${TARGET_NAME} PRIVATE KeCommon/Linker)
-    target_link_options(${TARGET_NAME} PRIVATE -Wl,-print-memory-usage,--sort-section=alignment,--gc-sections,--cref,-M=${TARGET_NAME}.map -nostdlib -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb  -T Ke16F256.ld)
+    target_link_directories(${TARGET_NAME} PRIVATE KeCommon/linker)
+    target_link_options(${TARGET_NAME} PRIVATE -Wl,-print-memory-usage,--sort-section=alignment,--gc-sections,--cref,-M=${TARGET_NAME}.map -nostdlib -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -T Ke16F256.ld)
 
     set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME ${TARGET_NAME}.elf)
     set_target_properties(${TARGET_NAME}
@@ -55,7 +55,7 @@ elseif (CMAKE_BUILD_TYPE MATCHES Test)
     add_executable(
         Utest
         null.cpp
-        )
+    )
     target_include_directories(
         Utest
         PUBLIC

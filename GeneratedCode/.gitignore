@@ -3,3 +3,12 @@
 /Debug
 /Release
 /.metadata/
+/CMSIS
+/device
+/doc
+/drivers
+/freertos
+/source
+/startup
+/utilities
+/component
