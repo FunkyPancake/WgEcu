@@ -24,26 +24,6 @@ const UBaseType_t app_task_PRIORITY = (configMAX_PRIORITIES - 1);
     TickType_t xLastWakeTime;
     const TickType_t xFrequency = 40;
     xLastWakeTime = xTaskGetTickCount();
-    
-    LpSpiRtos sbcSpi{&LPSPI0_handle};
-    Tle9461 sbc{&sbcSpi};
-    sbc.Init();
-    sbc.ConfigWatchdog(Tle9461::WgTimer200ms);
-    
-    LpUart uartGps{&LPUART0_rtos_handle, &LPUART0_rtos_config};
-    NeoM9N gps{&uartGps};
-    
-    FlexCan can{16};
-    auto canStream = SyvecsCan(gps,&can);
-
-    //wait for gps to wakeup
-    for (int i = 0; i < 13; i++)
-    {
-        vTaskDelayUntil(&xLastWakeTime, 100);
-        sbc.RefreshWatchdog();
-    }
-    
-    gps.Config();
 
     for (;;)
     {
