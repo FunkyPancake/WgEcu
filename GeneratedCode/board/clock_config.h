@@ -51,9 +51,9 @@ extern const scg_sirc_config_t g_scgSircConfig_BOARD_BootClockRUN;
 /*! @brief FIRC set for BOARD_BootClockRUN configuration.
  */
 extern const scg_firc_config_t g_scgFircConfigBOARD_BootClockRUN;
-extern const scg_spll_config_t g_scgSysPllConfigBOARD_BootClockRUN;
 /*! @brief Low Power FLL set for BOARD_BootClockRUN configuration.
  */
+extern const scg_spll_config_t g_scgSysPllConfigBOARD_BootClockRUN;
 
 /*******************************************************************************
  * API for BOARD_BootClockRUN configuration

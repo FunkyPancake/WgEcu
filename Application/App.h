@@ -4,8 +4,5 @@
 
 #pragma once
 
-#include "IApplication.h"
 
-class App : IApplication{
-
-};
+void App();

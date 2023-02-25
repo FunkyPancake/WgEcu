@@ -5,13 +5,14 @@
 #include "App.h"
 #include "peripherals.h"
 #include "FreeRTOS.h"
-#include "LpSpi.h"
-#include "LpUart.h"
+//#include "LpSpi.h"
+//#include "LpUart.h"
 #include "FlexCan.h"
-#include "NeoM9N.h"
-#include "Tle9461.h"
-#include "ICanStream.h"
-#include "SyvecsCan.h"
+#include "LpUart.h"
+//#include "NeoM9N.h"
+//#include "Tle9461.h"
+//#include "ICanStream.h"
+//#include "SyvecsCan.h"
 
 
 const UBaseType_t app_task_PRIORITY = (configMAX_PRIORITIES - 1);
@@ -24,12 +25,19 @@ const UBaseType_t app_task_PRIORITY = (configMAX_PRIORITIES - 1);
     TickType_t xLastWakeTime;
     const TickType_t xFrequency = 40;
     xLastWakeTime = xTaskGetTickCount();
+    FlexCan can{16};
+    ICan::Payload buf{{1,2,3,4,5}};
 
     for (;;)
     {
-        gps.GetData();
-        canStream.SendFrames();
-        sbc.RefreshWatchdog();
+        can.Send(0x80001234,buf,5);
+        can.Send(0x80001235,buf,2);
+        can.Send(0x34,buf,4);
+        can.Send(0x1,buf,5);
+        buf.b[0]++;
+//        gps.GetData();
+//        canStream.SendFrames();
+//        sbc.RefreshWatchdog();
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
     }
 }

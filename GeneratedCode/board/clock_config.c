@@ -23,11 +23,11 @@
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Clocks v7.0
+product: Clocks v10.0
 processor: MKE16F256xxx16
 package_id: MKE16F256VLH16
 mcu_data: ksdk2_0
-processor_version: 9.0.0
+processor_version: 12.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 
@@ -42,8 +42,6 @@ processor_version: 9.0.0
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-/* System clock frequency. */
-extern uint32_t SystemCoreClock;
 
 /*******************************************************************************
  * Code
@@ -139,8 +137,7 @@ outputs:
 - {id: PCC.PCC_LPSPI0_CLK.outFreq, value: 10.5 MHz}
 - {id: PCC.PCC_LPSPI1_CLK.outFreq, value: 10.5 MHz}
 - {id: PCC.PCC_LPUART0_CLK.outFreq, value: 12 MHz}
-- {id: PLLDIV2_CLK.outFreq, value: 10.5 MHz}
-- {id: SIRCDIV2_CLK.outFreq, value: 8 MHz}
+- {id: PLLDIV2_CLK.outFreq, value: 10.5 MHz, locked: true, accuracy: '0.001'}
 - {id: SIRC_CLK.outFreq, value: 8 MHz}
 - {id: SOSCDIV2_CLK.outFreq, value: 12 MHz}
 - {id: SOSC_CLK.outFreq, value: 12 MHz}
@@ -155,7 +152,6 @@ settings:
 - {id: SCG.DIVBUS.scale, value: '2'}
 - {id: SCG.DIVSLOW.scale, value: '7'}
 - {id: SCG.SCSSEL.sel, value: SCG.SPLL_DIV2_CLK}
-- {id: SCG.SIRCDIV2.scale, value: '1', locked: true}
 - {id: SCG.SOSCDIV2.scale, value: '1', locked: true}
 - {id: SCG.SPLLDIV2.scale, value: '16', locked: true}
 - {id: SCG.SPLL_mul.scale, value: '28'}
@@ -192,7 +188,7 @@ const scg_sirc_config_t g_scgSircConfig_BOARD_BootClockRUN =
     {
         .enableMode = kSCG_SircEnable | kSCG_SircEnableInLowPower,/* Enable SIRC clock, Enable SIRC in low power mode */
         .div1 = kSCG_AsyncClkDisable,             /* Slow IRC Clock Divider 1: Clock output is disabled */
-        .div2 = kSCG_AsyncClkDivBy1,              /* Slow IRC Clock Divider 2: divided by 1 */
+        .div2 = kSCG_AsyncClkDisable,             /* Slow IRC Clock Divider 2: Clock output is disabled */
         .range = kSCG_SircRangeHigh,              /* Slow IRC high range clock (8 MHz) */
     };
 const scg_firc_config_t g_scgFircConfig_BOARD_BootClockRUN =

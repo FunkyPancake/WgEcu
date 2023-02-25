@@ -9,8 +9,6 @@
 /***********************************************************************************************************************
  * Included files
  **********************************************************************************************************************/
-#include "fsl_edma.h"
-#include "fsl_dmamux.h"
 #include "fsl_common.h"
 #include "fsl_flexcan.h"
 #include "fsl_clock.h"
@@ -27,14 +25,22 @@ extern "C" {
  * Definitions
  **********************************************************************************************************************/
 /* Definitions for BOARD_InitPeripherals functional group */
-/* Used DMA device. */
-#define DMA_DMA_BASEADDR DMA0
-/* Associated DMAMUX device that is used for muxing of requests. */
-#define DMA_DMAMUX_BASEADDR DMAMUX
 /* Definition of peripheral ID */
 #define CAN0_PERIPHERAL CAN0
 /* Definition of the clock source frequency */
 #define CAN0_CLOCK_SOURCE 84000000UL
+/* CAN0 interrupt vector ID (number). */
+#define CAN0_CAN_ORED_MB_IRQN CAN0_ORed_Message_buffer_IRQn
+/* CAN0 interrupt vector ID (number). */
+#define CAN0_CAN_BUSOFF_IRQN CAN0_ORed_IRQn
+/* CAN0 interrupt vector ID (number). */
+#define CAN0_CAN_ERROR_IRQN CAN0_Error_IRQn
+/* CAN0 interrupt vector ID (number). */
+#define CAN0_CAN_TX_IRQN CAN0_ORed_IRQn
+/* CAN0 interrupt vector ID (number). */
+#define CAN0_CAN_RX_IRQN CAN0_ORed_IRQn
+/* CAN0 interrupt vector ID (number). */
+#define CAN0_CAN_WAKEUP_IRQN CAN0_Wake_Up_IRQn
 /* BOARD_InitPeripherals defines for LPSPI0 */
 /* Definition of peripheral ID */
 #define LPSPI0_PERIPHERAL LPSPI0
@@ -46,17 +52,6 @@ extern "C" {
 #define LPSPI0_IRQ_PRIORITY 5
 /* Transfer buffer size */
 #define LPSPI0_BUFFER_SIZE 10
-/* BOARD_InitPeripherals defines for LPSPI1 */
-/* Definition of peripheral ID */
-#define LPSPI1_PERIPHERAL LPSPI1
-/* Definition of clock source */
-#define LPSPI1_CLOCK_FREQ 10500000UL
-/* LPSPI1 interrupt vector ID (number). */
-#define LPSPI1_IRQN LPSPI1_IRQn
-/* LPSPI1 interrupt vector priority. */
-#define LPSPI1_IRQ_PRIORITY 5
-/* Transfer buffer size */
-#define LPSPI1_BUFFER_SIZE 10
 /* Definition of peripheral ID */
 #define LPUART0_PERIPHERAL LPUART0
 /* Definition of the backround buffer size */
@@ -73,17 +68,12 @@ extern "C" {
 /***********************************************************************************************************************
  * Global variables
  **********************************************************************************************************************/
-extern const edma_config_t DMA_config;
 extern const flexcan_config_t CAN0_config;
-/* Message buffer 0 configuration structure */
-extern const flexcan_rx_mb_config_t CAN0_rx_mb_config_0;
 extern flexcan_rx_fifo_config_t CAN0_rx_fifo_config;
+extern flexcan_handle_t CAN0_handle;
 extern const lpspi_master_config_t LPSPI0_config;
 extern lpspi_transfer_t LPSPI0_transfer;
 extern lpspi_rtos_handle_t LPSPI0_handle;
-extern const lpspi_master_config_t LPSPI1_config;
-extern lpspi_transfer_t LPSPI1_transfer;
-extern lpspi_rtos_handle_t LPSPI1_handle;
 extern lpuart_rtos_handle_t LPUART0_rtos_handle;
 extern lpuart_handle_t LPUART0_lpuart_handle;
 extern lpuart_rtos_config_t LPUART0_rtos_config;

@@ -36,7 +36,7 @@
 #include "peripherals.h"
 #include "pin_mux.h"
 #include "App.h"
-
+#include "CommTask.h"
 
 /*******************************************************************************
 
@@ -64,7 +64,9 @@ int main()
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitBootPeripherals();
-    
+
+    App();
+    CommTask();
     vTaskStartScheduler();
     /* Enter an infinite loop, just incrementing a counter. */
     
