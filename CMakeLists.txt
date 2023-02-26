@@ -10,7 +10,8 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
     add_executable(${TARGET_NAME}
             Application/main.cpp
             Application/App.cpp
-            Application/CommTask.cpp)
+            Application/CommTask.cpp
+            Application/RealTimeData.cpp)
 
     target_include_directories(
             ${TARGET_NAME}
@@ -44,8 +45,8 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
     target_link_options(${TARGET_NAME} PRIVATE -Wl,-print-memory-usage,--sort-section=alignment,--gc-sections,--cref,-M=${TARGET_NAME}.map -nostdlib -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -T Ke16F256.ld)
 
     set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME ${TARGET_NAME}.elf)
-#    set_target_properties(${TARGET_NAME}
-#            PROPERTIES RUNTIME_OUTPUT_DIRECTORY ./build)
+    #    set_target_properties(${TARGET_NAME}
+    #            PROPERTIES RUNTIME_OUTPUT_DIRECTORY ./build)
 
 
 elseif (CMAKE_BUILD_TYPE MATCHES Test)
